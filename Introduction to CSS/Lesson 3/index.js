@@ -1,4 +1,5 @@
 window.onload = addButton()
+window.onload = total()
 
 const cartObj= {
     Name :  [],
@@ -30,7 +31,6 @@ function addToCart(){
         cartObj.Name.unshift(itemName)
         cartObj.Price.unshift(itemValue)
         cartObj.Img.unshift(itemPic)
-        console.log(cartObj)
         showCart()
         total()
     }
@@ -129,18 +129,20 @@ function total (){
         integers =  prices[i].id
         totalArr.push(Number(integers))    
     }
-    sum =totalArr.reduce((a , b) => a + parseFloat(b), 0)
+    sum =totalArr.reduce((a , b) => a + b, 0)
     sumRound = sum.toFixed(2)
     totalPrice.innerHTML = `$${sumRound}`
 }
 
 function purchase(){
     wholeCart = document.getElementById('cart-items')
-    while(wholeCart.firstChild){
-    wholeCart.removeNode(wholeCart.firstChild)
+    if(wholeCart.innerHTML === ""){
+        alert('Add something to your cart first')
     }
-
-    cartObj.Name.splice(0,cartObj.Name.length)
-    cartObj.Price.splice(0,cartObj.Price.length)
-    cartObj.Img.splice(0,cartObj.Img.length)
+    else{
+        wholeCart.innerHTML = ''
+        cartObj.Name.splice(0,cartObj.Name.length)
+        cartObj.Price.splice(0,cartObj.Price.length)
+        cartObj.Img.splice(0,cartObj.Img.length)
+    }
 }
